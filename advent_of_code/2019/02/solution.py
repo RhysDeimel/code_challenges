@@ -4,30 +4,32 @@ def get_inputs(file):
         return [int(num) for num in number_string]
 
 
-def add(ints, position):
-    pos1, pos2, result_pos = ints[position + 1: position + 4]
-    ints[result_pos] = ints[pos1] + ints[pos2]
+def add(mem, address):
+    param_1, param_2, result_param = mem[address + 1: address + 4]
+    mem[result_param] = mem[param_1] + mem[param_2]
 
-def multiply(ints, position):
-    pos1, pos2, result_pos = ints[position + 1: position + 4]
-    ints[result_pos] = ints[pos1] * ints[pos2]
+def multiply(mem, address):
+    param_1, param_2, result_param = mem[address + 1: address + 4]
+    mem[result_param] = mem[param_1] * mem[param_2]
 
 
-def program_one(ints):
+def program_one(mem):
     CODES = {
         1: add,
         2: multiply,
         99: False
     }
-    prog_len = len(ints) - 1
+    prog_len = len(mem) - 1
 
     for i in range(0, prog_len, 4):
-        f = CODES[ints[i]]
+        f = CODES[mem[i]]
         if f:
-            f(ints, i)
+            f(mem, i)
         else:
             break
 
+def program_two(mem):
+    pass
 
 
 
