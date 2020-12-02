@@ -3,8 +3,8 @@ import solution
 class TestUnit:
     def test_get_inputs(self):
         result = solution.get_inputs("input.txt")
-        assert result[0] == 1
-        assert result[-1] == 0
+        assert result[0] == 1975
+        assert result[-1] == 1322
 
 # class TestFunctional:
 #     def test_program_one(self):
