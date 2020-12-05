@@ -17,13 +17,6 @@ class TestUnit:
         assert result[0].password == "abcde"
         assert result[1].password == "cdefg"
 
-    # def test_find_nums_that_sum_to_can_handle_three_digits(self):
-    #     given = [1721, 979, 366, 299, 675, 1456]
-    #     expected = {979, 366, 675}  # 2020
-    #     result = s.find_nums_that_sum_to(given, 3, sum(expected))  # 2020
-    #     assert set(result) == expected
-
-
 class TestFunctional:
     def test_program_one(self):
         given = ["1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc"]
