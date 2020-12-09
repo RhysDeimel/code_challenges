@@ -44,9 +44,16 @@ class Passport:
             raise ValueError("Iyr is not valid")
         self._iyr = value
 
-#     @eyr.setter
-#     def eyr(self, value):
-#         pass
+    @property
+    def eyr(self):
+        return self._eyr
+
+    @eyr.setter
+    def eyr(self, value):
+        if value < "2020" or value > "2030":
+            raise ValueError("Eyr is not valid")
+        self._eyr = value
+
 
 #     @hgt.setter
 #     def hgt(self, value):

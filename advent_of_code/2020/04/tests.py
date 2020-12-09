@@ -22,14 +22,14 @@ p2_test_input = [
 
 formatted_input = [
     {
-        "eyr": "1972",
-        "cid": "100",
-        "hcl": "#18171d",
-        "ecl": "amb",
-        "hgt": "170",
-        "pid": "186cm",
-        "byr": "1926",
-        "iyr": "2018",
+        "hcl": "#888785",
+        "hgt": "164cm",
+        "byr": "2001",
+        "iyr": "2015",
+        "cid": "88",
+        "pid": "545766238",
+        "ecl": "hzl",
+        "eyr": "2022",
     }
 ]
 
@@ -44,7 +44,7 @@ class TestUnit:
         assert result[-1] == "byr:2000 ecl:hzl eyr:2029 iyr:2011 hcl:#866857 hgt:74in"
 
     def test_format_inputs(self):
-        given = p2_test_input[0:1] # slice because I want a list
+        given = p2_test_input[-2:-1] # slice because I want a list
         expected = copy.deepcopy(formatted_input)
         assert s.format_inputs(given) == expected
 
@@ -74,15 +74,31 @@ class TestUnit:
         given["iyr"] = valid_iyr[0]
 
         p = s.Passport(**given)
-        assert p.iyr in valid_iyr
+        assert valid_iyr[0] <= p.iyr <= valid_iyr[1]
         p.iyr = valid_iyr[1]
-        assert p.iyr in valid_iyr
+        assert valid_iyr[0] <= p.iyr <= valid_iyr[1]
 
         with pytest.raises(ValueError):
             p.iyr = invalid_iyr[0]
         with pytest.raises(ValueError):
             p.iyr = invalid_iyr[1]
 
+    def test_Passport_checks_eyr(self):
+        valid_eyr = ("2020","2030")
+        invalid_eyr = ("2019", "2031")
+
+        given = copy.deepcopy(formatted_input[0])
+        given["eyr"] = valid_eyr[0]
+
+        p = s.Passport(**given)
+        assert valid_eyr[0] <= p.eyr <= valid_eyr[1]
+        p.eyr = valid_eyr[1]
+        assert valid_eyr[0] <= p.eyr <= valid_eyr[1]
+
+        with pytest.raises(ValueError):
+            p.eyr = invalid_eyr[0]
+        with pytest.raises(ValueError):
+            p.eyr = invalid_eyr[1]
 
 class TestFunctional:
     def test_program_one(self):
