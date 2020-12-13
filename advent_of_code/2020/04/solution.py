@@ -54,10 +54,24 @@ class Passport:
             raise ValueError("Eyr is not valid")
         self._eyr = value
 
+    @property
+    def hgt(self):
+        return self._hgt
 
-#     @hgt.setter
-#     def hgt(self, value):
-#         pass
+    @hgt.setter
+    def hgt(self, value):
+        unit = value[-2:]
+        height = value[:-2]
+        if unit == "cm":
+            if "150" <= height <= "193":
+                self._hgt = value
+                return
+        elif unit == "in":
+            if "59" <= height <= "76":
+                self._hgt = value
+                return
+        
+        raise ValueError("Hgt is not valid")
 
 #     @hcl.setter
 #     def hcl(self, value):

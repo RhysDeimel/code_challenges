@@ -74,9 +74,10 @@ class TestUnit:
         given["iyr"] = valid_iyr[0]
 
         p = s.Passport(**given)
-        assert valid_iyr[0] <= p.iyr <= valid_iyr[1]
+        # assert valid_iyr[0] <= p.iyr <= valid_iyr[1]
+        assert p.iyr == valid_iyr[0]
         p.iyr = valid_iyr[1]
-        assert valid_iyr[0] <= p.iyr <= valid_iyr[1]
+        assert p.iyr == valid_iyr[1]
 
         with pytest.raises(ValueError):
             p.iyr = invalid_iyr[0]
@@ -91,14 +92,48 @@ class TestUnit:
         given["eyr"] = valid_eyr[0]
 
         p = s.Passport(**given)
-        assert valid_eyr[0] <= p.eyr <= valid_eyr[1]
+        assert p.eyr == valid_eyr[0]
         p.eyr = valid_eyr[1]
-        assert valid_eyr[0] <= p.eyr <= valid_eyr[1]
+        assert p.eyr == valid_eyr[1]
 
         with pytest.raises(ValueError):
             p.eyr = invalid_eyr[0]
         with pytest.raises(ValueError):
             p.eyr = invalid_eyr[1]
+
+    def test_Passport_checks_hgt(self):
+        valid_hgt = ("60in", "190cm")
+        invalid_hgt = ("190in", "190")
+
+        given = copy.deepcopy(formatted_input[0])
+        given["hgt"] = valid_hgt[0]
+
+        p = s.Passport(**given)
+        assert p.hgt == valid_hgt[0]
+        p.hgt = valid_hgt[1]
+        assert p.hgt == valid_hgt[1]
+
+        with pytest.raises(ValueError):
+            p.hgt = invalid_hgt[0]
+        with pytest.raises(ValueError):
+            p.hgt = invalid_hgt[1]
+
+    # def test_Passport_checks_hcl(self):
+    #     valid_hcl = ("60in", "190cm")
+    #     invalid_hcl = ("190in", "190")
+
+    #     given = copy.deepcopy(formatted_input[0])
+    #     given["hcl"] = valid_hcl[0]
+
+    #     p = s.Passport(**given)
+    #     assert p.hcl == valid_hcl[0]
+    #     p.hcl = valid_hcl[1]
+    #     assert p.hcl == valid_hcl[1]
+
+    #     with pytest.raises(ValueError):
+    #         p.hcl = invalid_hcl[0]
+    #     with pytest.raises(ValueError):
+    #         p.hcl = invalid_hcl[1]
 
 class TestFunctional:
     def test_program_one(self):
