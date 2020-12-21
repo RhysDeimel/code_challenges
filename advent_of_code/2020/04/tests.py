@@ -161,6 +161,12 @@ class TestUnit:
             with pytest.raises(ValueError):
                 p.pid = value
 
+    def test_Passport_handles_no_cid(self):
+        given = copy.deepcopy(formatted_input[0])
+        del given["cid"]
+        s.Passport(**given)
+
+
 class TestFunctional:
     def test_program_one(self):
         assert s.program_one(p1_test_input) == 2

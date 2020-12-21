@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
-class Pssport:
+class SimplePassport:
     byr: int
     iyr: int
     eyr: int
@@ -15,7 +15,7 @@ class Pssport:
 
 
 class Passport:
-    def __init__(self, byr, iyr, eyr, hgt, hcl, ecl, pid, cid):
+    def __init__(self, byr, iyr, eyr, hgt, hcl, ecl, pid, cid=None):
         self.byr = byr
         self.iyr = iyr
         self.eyr = eyr
@@ -109,10 +109,6 @@ class Passport:
         else:
             raise ValueError("Pid is not valid")
 
-#     @cid.setter
-#     def cid(self, value):
-#         pass
-
 
 def get_inputs(file):
     with open(file, "r") as fd:
@@ -133,7 +129,7 @@ def program_one(inputs):
     valid_passports = []
     for item in passports:
         try:
-            valid_passports.append(Pssport(**item))
+            valid_passports.append(SimplePassport(**item))
         except TypeError:
             pass
 
@@ -141,7 +137,16 @@ def program_one(inputs):
 
 
 def program_two(inputs):
-    pass
+    passports = format_inputs(inputs)
+
+    valid_passports = []
+    for item in passports:
+        try:
+            valid_passports.append(Passport(**item))
+        except (TypeError, ValueError):
+            pass
+
+    return len(valid_passports)
 
 
 if __name__ == "__main__":
