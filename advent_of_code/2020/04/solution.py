@@ -84,12 +84,20 @@ class Passport:
             self._hcl = value
         else:
             raise ValueError("Hcl is not valid")
+
+
+    @property
+    def ecl(self):
+        return self._ecl
+
+    @ecl.setter
+    def ecl(self, value):
+        allowed_values = ("amb", "blu", "brn", "gry", "grn", "hzl", "oth")
+        if value in allowed_values:
+            self._ecl = value
+        else:
+            raise ValueError("Ecl is not valid")
     
-
-#     @hcl.setter
-#     def hcl(self, value):
-#         pass
-
 #     @ecl.setter
 #     def ecl(self, value):
 #         pass

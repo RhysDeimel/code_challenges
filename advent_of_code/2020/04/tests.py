@@ -119,7 +119,6 @@ class TestUnit:
     def test_Passport_checks_hcl(self):
         valid_hcl = ("#123abc", "#623a2f", "#a97842", "#888785")
         invalid_hcl = ("#123abz", "123abc", "dab227", "74454a")
-        pass
 
         given = copy.deepcopy(formatted_input[0])
         p = s.Passport(**given)
@@ -131,6 +130,21 @@ class TestUnit:
         for value in invalid_hcl:
             with pytest.raises(ValueError):
                 p.hcl = value
+
+    def test_Passport_checks_ecl(self):
+        valid = ("amb", "blu", "brn", "gry", "grn", "hzl", "oth")
+        invalid = ("bmb", "asdasd", "", "123")
+
+        given = copy.deepcopy(formatted_input[0])
+        p = s.Passport(**given)
+
+        for value in valid:
+            p.ecl = value
+            assert p.ecl == value
+
+        for value in invalid:
+            with pytest.raises(ValueError):
+                p.ecl = value
 
 
 class TestFunctional:
