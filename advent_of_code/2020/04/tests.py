@@ -106,33 +106,32 @@ class TestUnit:
         invalid_hgt = ("149cm", "194cm", "58in", "77in", "22")
 
         given = copy.deepcopy(formatted_input[0])
-        given["hgt"] = "151cm"
         p = s.Passport(**given)
 
-        for correct_measure in valid_hgt:
-            p.hgt = correct_measure
-            assert p.hgt == correct_measure
+        for value in valid_hgt:
+            p.hgt = value
+            assert p.hgt == value
 
-        for incorect_measure in invalid_hgt:
+        for value in invalid_hgt:
             with pytest.raises(ValueError):
-                p.hgt = incorect_measure
+                p.hgt = value
 
-    # def test_Passport_checks_hcl(self):
-    #     valid_hcl = ("60in", "190cm")
-    #     invalid_hcl = ("190in", "190")
+    def test_Passport_checks_hcl(self):
+        valid_hcl = ("#123abc", "#623a2f", "#a97842", "#888785")
+        invalid_hcl = ("#123abz", "123abc", "dab227", "74454a")
+        pass
 
-    #     given = copy.deepcopy(formatted_input[0])
-    #     given["hcl"] = valid_hcl[0]
+        given = copy.deepcopy(formatted_input[0])
+        p = s.Passport(**given)
 
-    #     p = s.Passport(**given)
-    #     assert p.hcl == valid_hcl[0]
-    #     p.hcl = valid_hcl[1]
-    #     assert p.hcl == valid_hcl[1]
+        for value in valid_hcl:
+            p.hcl = value
+            assert p.hcl == value
 
-    #     with pytest.raises(ValueError):
-    #         p.hcl = invalid_hcl[0]
-    #     with pytest.raises(ValueError):
-    #         p.hcl = invalid_hcl[1]
+        for value in invalid_hcl:
+            with pytest.raises(ValueError):
+                p.hcl = value
+
 
 class TestFunctional:
     def test_program_one(self):

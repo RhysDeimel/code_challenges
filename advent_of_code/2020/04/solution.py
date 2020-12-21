@@ -1,3 +1,4 @@
+import re
 from dataclasses import dataclass
 
 
@@ -72,6 +73,18 @@ class Passport:
                 return
         
         raise ValueError("Hgt is not valid")
+
+    @property
+    def hcl(self):
+        return self._hcl
+
+    @hcl.setter
+    def hcl(self, value):
+        if re.search('#[1-9a-f]{6}', value) != None:
+            self._hcl = value
+        else:
+            raise ValueError("Hcl is not valid")
+    
 
 #     @hcl.setter
 #     def hcl(self, value):
