@@ -80,7 +80,7 @@ class Passport:
 
     @hcl.setter
     def hcl(self, value):
-        if re.search('#[1-9a-f]{6}', value) != None:
+        if re.search('^#[1-9a-f]{6}$', value) != None:
             self._hcl = value
         else:
             raise ValueError("Hcl is not valid")
@@ -97,14 +97,17 @@ class Passport:
             self._ecl = value
         else:
             raise ValueError("Ecl is not valid")
-    
-#     @ecl.setter
-#     def ecl(self, value):
-#         pass
 
-#     @pid.setter
-#     def pid(self, value):
-#         pass
+    @property
+    def pid(self):
+        return self._pid
+    
+    @pid.setter
+    def pid(self, value):
+        if re.search('^[0-9]{9}$', value) != None:
+            self._pid = value
+        else:
+            raise ValueError("Pid is not valid")
 
 #     @cid.setter
 #     def cid(self, value):
