@@ -102,21 +102,20 @@ class TestUnit:
             p.eyr = invalid_eyr[1]
 
     def test_Passport_checks_hgt(self):
-        valid_hgt = ("60in", "190cm")
-        invalid_hgt = ("190in", "190")
+        valid_hgt = ("150cm", "193cm", "59in", "76in")
+        invalid_hgt = ("149cm", "194cm", "58in", "77in", "22")
 
         given = copy.deepcopy(formatted_input[0])
-        given["hgt"] = valid_hgt[0]
-
+        given["hgt"] = "151cm"
         p = s.Passport(**given)
-        assert p.hgt == valid_hgt[0]
-        p.hgt = valid_hgt[1]
-        assert p.hgt == valid_hgt[1]
 
-        with pytest.raises(ValueError):
-            p.hgt = invalid_hgt[0]
-        with pytest.raises(ValueError):
-            p.hgt = invalid_hgt[1]
+        for correct_measure in valid_hgt:
+            p.hgt = correct_measure
+            assert p.hgt == correct_measure
+
+        for incorect_measure in invalid_hgt:
+            with pytest.raises(ValueError):
+                p.hgt = incorect_measure
 
     # def test_Passport_checks_hcl(self):
     #     valid_hcl = ("60in", "190cm")
