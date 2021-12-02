@@ -11,15 +11,12 @@ def example1():
 
 
 def test_parse_example1(example1):
-    """Test that input is parsed properly"""
     assert example1 == [199, 200, 208, 210, 200, 207, 240, 269, 260, 263]
 
 
 def test_part1_example1(example1):
-    """Test part 1 on example input"""
     assert solutions.part1(example1) == 7
 
 
 def test_part2_example1(example1):
-    """Test part 2 on example input"""
     assert solutions.part2(example1) == 5
