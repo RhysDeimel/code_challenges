@@ -51,7 +51,7 @@ class BingoBoard:
 
 
 def part1(data):
-    numbers = data[0]
+    numbers = data[0][:]
     boards = [BingoBoard(board) for board in data[1:]]
 
     drawn_numbers = []
@@ -70,7 +70,7 @@ def part1(data):
 
 
 def part2(data):
-    numbers = data[0]
+    numbers = data[0][:]
     boards = [BingoBoard(board) for board in data[1:]]
 
     winning_boards = []
