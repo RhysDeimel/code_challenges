@@ -24,4 +24,4 @@ def test_part1_example1(example1):
     assert solutions.part1(example1) == 24000
 
 def test_part2_example1(example1):
-    assert False
+    assert solutions.part2(example1) == 45000
