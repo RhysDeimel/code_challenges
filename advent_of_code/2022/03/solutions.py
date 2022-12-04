@@ -2,6 +2,13 @@ def parse(puzzle_input):
     return [line for line in puzzle_input.rstrip().split("\n")]
 
 
+def priority(common: str):
+    if common.isupper():
+        return ord(common) - 38
+    else:
+        return ord(common) - 96
+
+
 def part1(data):
     result = 0
 
@@ -11,17 +18,13 @@ def part1(data):
         b = set(line[half:])
 
         common = list(a & b)[0]
-
-        if common.isupper():
-            result += ord(common) - 38
-        else:
-            result += ord(common) - 96
+        result += priority(common)
 
     return result
 
 
 def part2(data):
-    def chunks(lst, n):
+    def chunks(lst: list, n: int):
         """Yield successive n-sized chunks from lst."""
         for i in range(0, len(lst), n):
             yield lst[i : i + n]
@@ -30,11 +33,7 @@ def part2(data):
 
     for a, b, c in chunks(data, 3):
         common = list(set(a) & set(b) & set(c))[0]
-
-        if common.isupper():
-            result += ord(common) - 38
-        else:
-            result += ord(common) - 96
+        result += priority(common)
 
     return result
 
