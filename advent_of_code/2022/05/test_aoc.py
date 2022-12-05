@@ -43,6 +43,5 @@ def test_part1_example1(example1):
     assert solutions.part1(example1) == "CMZ"
 
 
-@pytest.mark.skip
 def test_part2_example1(example1):
-    assert solutions.part2(example1) == None
+    assert solutions.part2(example1) == "MCD"
