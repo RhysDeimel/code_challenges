@@ -1,4 +1,5 @@
 from collections import deque
+import pprint
 
 
 def parse(puzzle_input):
@@ -33,8 +34,17 @@ class File:
     def __radd__(self, other):
         return self.size + other
 
+    def __ge__(self, other):
+        return self.size >= other.size
 
-def part1(data):
+    def __gt__(self, other):
+        return self.size > other.size
+
+    def __eq__(self, other):
+        return self.size == other.size
+
+
+def map_filesystem(data):
     root = File(name="/", parent=None)
 
     nodes = deque()
@@ -66,25 +76,39 @@ def part1(data):
                         name=file_name, parent=head, size=int(size)
                     )
 
-    def all_directories(folder):
-        directories = []
-        for child in folder.children.values():
-            if not child._size:
-                directories.append(child)
-                directories += all_directories(child)
+    return root
 
-        return directories
 
+def subdirectories(folder):
     directories = []
-    for dir in all_directories(root):
-        if (dir_size := dir.size) <= 100000:
-            directories.append(dir)
+    for child in folder.children.values():
+        if not child._size:
+            directories.append(child)
+            directories += subdirectories(child)
+
+    return directories
+
+
+def part1(data):
+    directories = [
+        dir for dir in subdirectories(map_filesystem(data)) if dir.size <= 100000
+    ]
 
     return sum(directories)
 
 
 def part2(data):
-    return None
+    root = map_filesystem(data)
+
+    max_used = 70000000 - 30000000
+    current_used = root.size
+    to_free = current_used - max_used
+
+    directories = [
+        dir.size for dir in subdirectories(map_filesystem(data)) if dir.size >= to_free
+    ]
+
+    return min(directories)
 
 
 def solve(puzzle_input):
@@ -101,3 +125,7 @@ if __name__ == "__main__":
         puzzle_input = fd.read()
 
     solve(puzzle_input)
+
+
+# 70,000,000
+# 30,000,000
