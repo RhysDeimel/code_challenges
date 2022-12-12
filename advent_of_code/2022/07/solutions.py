@@ -1,6 +1,4 @@
 from collections import deque
-import pprint
-
 
 def parse(puzzle_input):
     return puzzle_input.rstrip().split("\n")
@@ -125,7 +123,3 @@ if __name__ == "__main__":
         puzzle_input = fd.read()
 
     solve(puzzle_input)
-
-
-# 70,000,000
-# 30,000,000
